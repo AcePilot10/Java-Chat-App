@@ -10,9 +10,8 @@ public class Chat {
 	public ArrayList<ChatMessage> messages;
 	
 	public Chat() { }
-	
-	@SuppressWarnings("unchecked")
-	public Chat(int id, int user1Id, int user2Id, @SuppressWarnings("rawtypes") ArrayList messages) {
+
+	public Chat(int id, int user1Id, int user2Id, ArrayList<ChatMessage> messages) {
 		this.id = id;
 		this.user1Id = user1Id;
 		this.user2Id = user2Id;
