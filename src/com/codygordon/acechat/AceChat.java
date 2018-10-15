@@ -26,6 +26,7 @@ public class AceChat {
 	public ConversationsController conconversationsController;
 	
 	public static void main(String[] args) {
+		System.out.println("Initializing...");
 		new AceChat();
 	}
 	
