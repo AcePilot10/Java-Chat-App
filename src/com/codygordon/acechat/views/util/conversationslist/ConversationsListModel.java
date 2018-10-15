@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractListModel;
 
+import com.codygordon.acechat.AceChat;
+import com.codygordon.acechat.interfaces.IUpdateListener;
 import com.codygordon.acechat.models.Chat;
 
-public class ConversationsListModel extends AbstractListModel<ConversationsListItem> {
+public class ConversationsListModel extends AbstractListModel<ConversationsListItem> implements IUpdateListener  {
 
-	ArrayList<ConversationsListItem> items = new ArrayList<ConversationsListItem>();
+	public static ConversationsListModel singleton;
+	
+	private ArrayList<ConversationsListItem> items = new ArrayList<ConversationsListItem>();
 
-	public ConversationsListModel(ArrayList<Chat> chats) {
-		for(Chat chat : chats) {
-			ConversationsListItem item = new ConversationsListItem();
-			item.chat = chat;
-			items.add(item);
-		}
+	public ConversationsListModel(ArrayList<ConversationsListItem> items) {
+		this.items = items;
 	}
 	
 	@Override
@@ -26,5 +26,17 @@ public class ConversationsListModel extends AbstractListModel<ConversationsListI
 	@Override
 	public ConversationsListItem getElementAt(int index) {
 		return items.get(index);
+	}
+
+	@Override
+	public void update() {
+		ArrayList<ConversationsListItem> items = new ArrayList<ConversationsListItem>();
+		for(Chat chat : AceChat.instance.conversationsController.getChats()) {
+			ConversationsListItem item = new ConversationsListItem();
+			item.chat = chat;
+			items.add(item);
+		}
+		System.out.println("Updating conversations!");
+		this.items = items;
 	}
 }

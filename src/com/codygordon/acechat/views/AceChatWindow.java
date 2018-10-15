@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.codygordon.acechat.AceChat;
+import com.codygordon.acechat.enums.Screen;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -11,8 +14,12 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import javax.swing.JMenuBar;
 import java.awt.GridLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AceChatWindow extends JFrame {
 
@@ -52,17 +59,13 @@ public class AceChatWindow extends JFrame {
 		
 		contentScreen = new JPanel();
 		contentScreen.setBackground(Color.LIGHT_GRAY);
-		contentScreen.setBounds(10, 56, 686, 432);
+		contentScreen.setBounds(28, 56, 650, 430);
 		contentPane.add(contentScreen);
 		contentScreen.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 612, 22);
-		contentPane.add(menuBar);
-		
 		
 		JLabel lblX = new JLabel("X");
-		lblX.setBounds(682, 11, 14, 20);
+		lblX.setBounds(660, 0, 46, 22);
 		contentPane.add(lblX);
 		lblX.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblX.addMouseListener(new MouseAdapter() {
@@ -73,5 +76,25 @@ public class AceChatWindow extends JFrame {
 		});
 		lblX.setForeground(Color.RED);
 		lblX.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 662, 22);
+		contentPane.add(menuBar);
+		
+		JMenu mnUser = new JMenu("User");
+		menuBar.add(mnUser);
+		
+		JMenuItem mntmLogOut = new JMenuItem("Log Out");
+		mntmLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				logout();
+			}
+		});
+		mnUser.add(mntmLogOut);
+	}
+	
+	private void logout() {
+		AceChat.instance.user = null;
+		AceChat.instance.displayScreen(Screen.LOGIN);
 	}
 }

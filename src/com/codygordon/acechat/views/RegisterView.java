@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 
 import com.codygordon.acechat.AceChat;
 import com.codygordon.acechat.enums.Screen;
+import com.codygordon.acechat.models.UserCredentials;
 
 public class RegisterView extends JPanel {
 
@@ -22,35 +23,36 @@ private static final long serialVersionUID = 1L;
 
 	public RegisterView() {
 		setLayout(null);
+		setSize(650, 430);
 		
 		JLabel lblTitle = new JLabel("Register");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(230, 39, 92, 21);
+		lblTitle.setBounds(279, 29, 92, 21);
 		add(lblTitle);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(158, 114, 252, 48);
+		txtUsername.setBounds(199, 79, 252, 48);
 		add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsername.setBounds(244, 173, 64, 14);
+		lblUsername.setBounds(293, 156, 64, 14);
 		add(lblUsername);
 		
 		txtPassword = new JTextField();
 		txtPassword.setColumns(10);
-		txtPassword.setBounds(158, 225, 252, 48);
+		txtPassword.setBounds(199, 199, 252, 48);
 		add(txtPassword);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassword.setBounds(244, 284, 64, 14);
+		lblPassword.setBounds(293, 276, 64, 14);
 		add(lblPassword);
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(230, 373, 89, 23);
+		btnLogin.setBounds(280, 371, 89, 23);
 		
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
@@ -62,7 +64,7 @@ private static final long serialVersionUID = 1L;
 		add(btnLogin);
 		
 		JButton btnRegister = new JButton("Register");
-		btnRegister.setBounds(230, 339, 89, 23);
+		btnRegister.setBounds(280, 319, 89, 23);
 		btnRegister.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -73,8 +75,11 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	private void registerButtonClicked() {
-		//TODO
-		System.out.println("Registering");
+		System.out.println("Attempting to register user...");
+		String username = txtUsername.getText();
+		String password = txtPassword.getText();
+		UserCredentials credentials = new UserCredentials(username, password);
+		AceChat.instance.userController.registerUser(credentials);
 	}
 	
 	private void loginButtonClicked() {
